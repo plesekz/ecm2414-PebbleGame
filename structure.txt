@@ -1,0 +1,30 @@
+bag
+	its own object
+	contains arraylist of integers
+		represnting the value of conatined pebbles
+	linked other bag
+		can return the pointer to
+	method for having a pebble entered
+bag:white
+	overriden constructor which takes a set of values as a starting set of pebbles
+	method for drawing a pebble
+		returns a random pebble from inside
+bag:black
+	method for depositing a single pebble
+	method for emptying into the other bag
+
+player
+	run method
+		draw from a bag
+		check for victory
+		write into the output log
+		discard a pebble
+		write into the output log
+	array of currently held pebbles
+	pointer to last used bag
+	array of pointers to all white
+
+
+
+Things to sort out
+	Should emptying bags into each other be handled by a sep thread or another player
