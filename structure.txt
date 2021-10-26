@@ -5,11 +5,11 @@ bag
 	linked other bag
 		can return the pointer to
 	method for having a pebble entered
-bag:white
+bag:black
 	overriden constructor which takes a set of values as a starting set of pebbles
 	method for drawing a pebble
 		returns a random pebble from inside
-bag:black
+bag:white
 	method for depositing a single pebble
 	method for emptying into the other bag
 
