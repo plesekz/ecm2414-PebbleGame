@@ -49,9 +49,8 @@ public class PebbleGame {
                 //handling adding to the hand
                 hand.add(drawnPebble);
                 logAdded(drawnPebble);
-                logHand();
                 
-                //checking for vicotry
+                //checking for victory
                 checkVictory();
             }
         }
@@ -121,12 +120,22 @@ public class PebbleGame {
             }
         }
 
-        private void logHand(){
-
-        }
-
         private void checkVictory(){
-
+            Integer currentTotal = 0;
+            for(Integer i : hand){
+                currentTotal += i;
+            }
+            if(currentTotal == 100){
+                String victoryMessage = Thread.currentThread().getName() + "has won the game!";
+                try{
+                    output.write(victoryMessage);
+                }
+                catch(IOException e){
+                    System.err.println(e);
+                }
+                System.out.println(victoryMessage);
+                // Kill the other threads here
+            }
         }
     }
 
