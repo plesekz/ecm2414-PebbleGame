@@ -15,10 +15,10 @@ bag:white
 
 player
 	run method
+		discard a pebble
+		write into the output log
 		draw from a bag
 		check for victory
-		write into the output log
-		discard a pebble
 		write into the output log
 	array of currently held pebbles
 	pointer to last used bag
