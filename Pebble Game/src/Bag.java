@@ -11,4 +11,7 @@ public class Bag {
 	public String getName() {
 		return name;
 	}
+	public String getPairName() {
+		return pairedBag.getName();
+	}
 }
