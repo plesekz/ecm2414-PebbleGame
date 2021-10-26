@@ -14,6 +14,9 @@ public class BlackBag extends Bag{
 		pairedBag = new WhiteBag(this, pairedBagName);
 	}
 	synchronized public Integer getPebble() throws EmptyBagException{
+		if(content.size()==0) {
+			throw new EmptyBagException();
+		}
 		if(content.size()>1) {
 			return content.remove(0);
 		} else {

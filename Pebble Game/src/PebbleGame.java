@@ -28,22 +28,48 @@ public class PebbleGame {
         }
         public void run(){
             while(!done){
+            	//Handling discarding
                 Integer discardedPebble = discardPebble();
                 logDiscarded(discardedPebble);
+                
+                //Handling drawing
+                Integer drawnPebble;
+                //Integer drawnPebble = getPebble();
                 Collections.shuffle(availableBags);
-                lastBagChosen = availableBags.get(0);
-                Integer drawnPebble = null;
-                try {
-                    drawnPebble = lastBagChosen.getPebble();
-                } catch (EmptyBagException e) {
-                    e.printStackTrace();
+                while(true) {                	
+                	lastBagChosen = availableBags.get(0);
+                	try {
+                		drawnPebble = lastBagChosen.getPebble();
+                		break;
+                	} catch (EmptyBagException e) {
+                		Collections.shuffle(availableBags);
+                	}
                 }
+                
+                //handling adding to the hand
                 hand.add(drawnPebble);
                 logAdded(drawnPebble);
                 logHand();
+                
+                //checking for vicotry
                 checkVictory();
             }
         }
+        
+        /* Dunno, this is here as a curio, Haskell, I guess
+        private Integer getPebble() {
+        	Integer pebble = null;
+        	lastBagChosen = availableBags.get(0);
+        	try {
+                lastBagChosen.getPebble();
+            } catch (EmptyBagException e) {
+                BlackBag hold = availableBags.remove(0);
+                pebble = getPebble();
+                availableBags.add(hold);
+            }
+        	return pebble;
+        }
+        */
 
         private Integer discardPebble(){
             Collections.shuffle(hand);
@@ -61,7 +87,7 @@ public class PebbleGame {
             Message.append(Name);
             Message.append(" hand is ");
             for(Integer I: hand){
-                Message.append(i);
+                Message.append(I);
                 Message.append(", ");
             }
             try{
