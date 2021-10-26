@@ -4,7 +4,8 @@ import java.util.Collections;
 public class BlackBag extends Bag{
 	WhiteBag pairedBag;
 	
-	BlackBag(Integer[] pebbles){
+	BlackBag(Integer[] pebbles, String name){
+		this.name = name;
 		content = new ArrayList<Integer>();
 		for(int i = 0; i<pebbles.length; i++) {
 			content.add(pebbles[i]);
