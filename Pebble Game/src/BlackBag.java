@@ -12,7 +12,8 @@ public class BlackBag extends Bag{
 		Collections.shuffle(content);
 		pairedBag = new WhiteBag(this);
 	}
-	synchronized public Integer getPebble() {
+	synchronized public Integer swapPebble(Integer pebble) {
+		pairedBag.putInPebble(pebble);
 		if(content.size()>1) {
 			return content.remove(0);
 		} else {
