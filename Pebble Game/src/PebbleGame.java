@@ -1,11 +1,8 @@
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 
 public class PebbleGame {
 	Scanner sc;
@@ -201,10 +198,13 @@ public class PebbleGame {
 			System.out.println("Please enter the location of bag number "+n+" to load:");
 			try {
 				s = sc.nextLine();
-				//TODO actually read the file
+                BufferedReader r = new BufferedReader(new FileReader(s));
+                s = r.readLine();
 				// store the content of the file in s
 				break;
 			} catch (IOException e) {
+                System.out.println("INVALID INPUT!!!");
+                System.out.println("Invalid File!!");
 				
 			}
 			
