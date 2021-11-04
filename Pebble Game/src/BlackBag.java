@@ -41,4 +41,8 @@ public class BlackBag extends Bag{
 		return pairedBag.getName();
 	}
 
+	@Override
+	public String getPairName() {
+		return pairedBag.getName();
+	}
 }

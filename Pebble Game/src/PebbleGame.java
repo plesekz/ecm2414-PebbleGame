@@ -29,6 +29,18 @@ public class PebbleGame {
             this.g = g;
             done = false;
             hand = new ArrayList<Integer>();
+            Integer drawnPebble = null;
+            for(int i = 0; i < 10; i++){
+                lastBagChosen = availableBags.get(0);
+                try {
+                    drawnPebble = lastBagChosen.getPebble();
+                    hand.add(drawnPebble);
+                    break;
+                } catch (EmptyBagException e) {
+                    Collections.shuffle(availableBags);
+                }
+            }
+            checkVictory();
         }
         public void run(){
             while(!done){
@@ -60,7 +72,7 @@ public class PebbleGame {
                 checkVictory();
             }
         }
-        
+
         /* Dunno, this is here as a curio, Haskell, I guess
         private Integer getPebble() {
         	Integer pebble = null;
@@ -134,7 +146,7 @@ public class PebbleGame {
                 currentTotal += i;
             }
             if(currentTotal == 100){
-                String victoryMessage = Thread.currentThread().getName() + "has won the game!";
+                String victoryMessage = Thread.currentThread().getName() + " has won the game!";
                 try{
                     output.write(victoryMessage);
                 }
@@ -185,6 +197,7 @@ public class PebbleGame {
     }
     private ArrayList<BlackBag> setUpBags(int numberOfPlayers) {
 		ArrayList<BlackBag> bgs = new ArrayList<BlackBag>();
+        sc.nextLine(); //used to move the reader to the eof of the console
 		for(int i = 0; i<3; i++) {
 			bgs.add(setUpABag(i, numberOfPlayers));
 		}
@@ -195,8 +208,7 @@ public class PebbleGame {
 		BlackBag b = null;
 		String s;
 		Integer[] values = null;
-		
-		sc.nextLine(); //used to move the reader to the eof of the console
+
 		while(true) {
 			System.out.println("Please enter the location of bag number "+n+" to load:");
 			try {
