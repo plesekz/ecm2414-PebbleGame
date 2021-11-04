@@ -6,9 +6,10 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class PebbleGame {
-
+	ArrayList<Runnable> threads;
 
     private class Player implements Runnable{
+    	PebbleGame g;
         ArrayList<Integer> hand;
         ArrayList<BlackBag> availableBags;
         Boolean done;
@@ -16,7 +17,7 @@ public class PebbleGame {
         BlackBag lastBagChosen;
 
 
-        public Player(ArrayList<BlackBag> bagsFromFile, String Name) throws IOException {
+        public Player(ArrayList<BlackBag> bagsFromFile, String Name, PebbleGame g) throws IOException {
             availableBags = bagsFromFile;
             Thread.currentThread().setName(Name);
             File file = new File("/" + Name + "_output.txt");
@@ -25,9 +26,11 @@ public class PebbleGame {
             }
             FileWriter fw = new FileWriter(file);
             output = new BufferedWriter(fw);
+            this.g = g;
         }
         public void run(){
             while(!done){
+            	//TODO - make this up to flag1 atomic
             	//Handling discarding
                 Integer discardedPebble = discardPebble();
                 logDiscarded(discardedPebble);
@@ -45,6 +48,7 @@ public class PebbleGame {
                 		Collections.shuffle(availableBags);
                 	}
                 }
+                //flag1
                 
                 //handling adding to the hand
                 hand.add(drawnPebble);
@@ -141,8 +145,27 @@ public class PebbleGame {
 
 
     public static void main(String[] args) {
-
-
-
+    	PebbleGame g = new PebbleGame();
+    	g.game();
+    }
+    
+    public void game() {
+    	ArrayList<BlackBag> bags = setUpBags();
+    	int numberOfPlayers = getNumberOfPlayers();
+    	threads = new ArrayList<Runnable>();
+    	
+    	for(int i = 0; i<numberOfPlayers; i++) {
+    		int tmp = i+1;
+    		Player p = new Player(bags, "Player " +tmp, this);
+    		threads.add(p);
+    	}
+    	for(Runnable r:threads) {
+    		r.run();
+    	}
+    }
+    public void endOfGame() {
+    	for(Runnable r:threads) {
+    		r.
+    	}
     }
 }
