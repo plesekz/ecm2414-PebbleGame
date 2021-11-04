@@ -240,10 +240,14 @@ public class PebbleGame {
 	}
 
 	private int getNumberOfPlayers() {
-		int p;
+		int p = 0;
 		while(true) {
 			System.out.println("Please enter the number of players:\n");
-			p = sc.nextInt();
+			try {
+				p = sc.nextInt();
+			} catch (Exception e) {
+				System.out.println("Not a number.");
+			}
 			if(p>0) break;
 		}
 		return p;
