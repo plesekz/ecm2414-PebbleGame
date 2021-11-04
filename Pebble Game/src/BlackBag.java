@@ -30,4 +30,10 @@ public class BlackBag extends Bag{
 	synchronized public void putInPebble(Integer pebble) {
 		pairedBag.putInPebble(pebble);
 	}
+
+	@Override
+	public WhiteBag getPairedBag(){
+		return this.pairedBag;
+	}
+
 }
