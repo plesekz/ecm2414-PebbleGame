@@ -20,13 +20,15 @@ public class PebbleGame {
         public Player(ArrayList<BlackBag> bagsFromFile, String Name, PebbleGame g) throws IOException {
             availableBags = bagsFromFile;
             Thread.currentThread().setName(Name);
-            File file = new File("/" + Name + "_output.txt");
+            File file = new File(Name + "_output.txt");
             if (!file.exists()) {
                 file.createNewFile();
             }
             FileWriter fw = new FileWriter(file);
             output = new BufferedWriter(fw);
             this.g = g;
+            done = false;
+            hand = new ArrayList<Integer>();
         }
         public void run(){
             while(!done){
@@ -153,6 +155,7 @@ public class PebbleGame {
     }
     
     public void game() {
+    	sc = new Scanner(System.in);
     	System.out.println(""
     			+ "Welcome to the PebbleGame!!\n"
     			+ "You will be asked to enter the umber of players.\n"
@@ -185,15 +188,15 @@ public class PebbleGame {
 		for(int i = 0; i<3; i++) {
 			bgs.add(setUpABag(i, numberOfPlayers));
 		}
-		return null;
+		return bgs;
 	}
 
 	private BlackBag setUpABag(int n, int numberOfPlayers) {
-		Scanner sc = new Scanner(System.in);
 		BlackBag b = null;
 		String s;
 		Integer[] values = null;
 		
+		sc.nextLine(); //used to move the reader to the eof of the console
 		while(true) {
 			System.out.println("Please enter the location of bag number "+n+" to load:");
 			try {
@@ -208,7 +211,6 @@ public class PebbleGame {
                 System.out.println("Invalid File!!");				
 			}
 		}
-		sc.close();
 		try {
 			values = new Integer[s.split(",").length];
 			if(values.length<11*numberOfPlayers) {
@@ -216,7 +218,7 @@ public class PebbleGame {
 			}
 			for(int i = 0; i<s.split(",").length;i++) {
 				values[i] = Integer.parseInt(s.split(",")[i]);
-				if(values[i]>0) throw new NotPositivePebbleWeightException();
+				if(values[i]<0) throw new NotPositivePebbleWeightException();
 			}
 		} catch (NumberFormatException e) {
 			System.out.println("INVALID INPUT!!!");
@@ -238,14 +240,12 @@ public class PebbleGame {
 	}
 
 	private int getNumberOfPlayers() {
-		Scanner sc = new Scanner(System.in);
 		int p;
 		while(true) {
 			System.out.println("Please enter the number of players:\n");
 			p = sc.nextInt();
 			if(p>0) break;
 		}
-		sc.close();
 		return p;
 	}
 
