@@ -14,6 +14,12 @@ public class Test {
 		for(Integer i:hold) {
 			System.out.print("Hold:" + i);
 		}
+		
+		char black = (char) ('Z'-2+1);
+		char white = (char) ('A'+ 1);
+		
+		System.out.print(black);
+		System.out.print(white);
 
 	}
 

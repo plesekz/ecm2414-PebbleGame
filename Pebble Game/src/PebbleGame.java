@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class PebbleGame {
-	Scanner sc;
     ArrayList<Thread> threads;
+    Scanner sc;
 
     private class Player implements Runnable{
     	PebbleGame g;
@@ -153,7 +153,6 @@ public class PebbleGame {
     }
     
     public void game() {
-    	sc = new Scanner(System.in);
     	System.out.println(""
     			+ "Welcome to the PebbleGame!!\n"
     			+ "You will be asked to enter the umber of players.\n"
@@ -190,6 +189,7 @@ public class PebbleGame {
 	}
 
 	private BlackBag setUpABag(int n, int numberOfPlayers) {
+		Scanner sc = new Scanner(System.in);
 		BlackBag b = null;
 		String s;
 		Integer[] values = null;
@@ -201,14 +201,14 @@ public class PebbleGame {
                 BufferedReader r = new BufferedReader(new FileReader(s));
                 s = r.readLine();
 				// store the content of the file in s
+                r.close();
 				break;
 			} catch (IOException e) {
                 System.out.println("INVALID INPUT!!!");
-                System.out.println("Invalid File!!");
-				
+                System.out.println("Invalid File!!");				
 			}
-			
 		}
+		sc.close();
 		try {
 			values = new Integer[s.split(",").length];
 			if(values.length<11*numberOfPlayers) {
@@ -238,12 +238,14 @@ public class PebbleGame {
 	}
 
 	private int getNumberOfPlayers() {
+		Scanner sc = new Scanner(System.in);
 		int p;
 		while(true) {
 			System.out.println("Please enter the number of players:\n");
 			p = sc.nextInt();
 			if(p>0) break;
 		}
+		sc.close();
 		return p;
 	}
 
