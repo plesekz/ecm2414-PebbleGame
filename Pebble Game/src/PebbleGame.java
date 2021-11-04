@@ -2,11 +2,13 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
 public class PebbleGame {
+	Scanner sc;
     ArrayList<Thread> threads;
 
     private class Player implements Runnable{
@@ -96,6 +98,7 @@ public class PebbleGame {
             }
             try{
                 output.write(Message.toString());
+                output.flush();
             }
             catch(IOException e){
                 System.err.println(e);
@@ -119,6 +122,7 @@ public class PebbleGame {
             }
             try{
                 output.write(Message.toString());
+                output.flush();
             }
             catch(IOException e){
                 System.err.println(e);
@@ -152,15 +156,27 @@ public class PebbleGame {
     }
     
     public void game() {
-    	ArrayList<BlackBag> bags = setUpBags();
+    	sc = new Scanner(System.in);
+    	System.out.println(""
+    			+ "Welcome to the PebbleGame!!\n"
+    			+ "You will be asked to enter the umber of players.\n"
+    			+ "and then for the location of three files in turn containing comma seperated integer values for the pebble weights.\n"
+    			+ "The integer values must be strictly positive.\n"
+    			+ "The game will then be simulated, and output written to files in this directory.");
+    	
     	int numberOfPlayers = getNumberOfPlayers();
-        threads = new ArrayList<Thread>;
+    	ArrayList<BlackBag> bags = setUpBags(numberOfPlayers);    	
+        threads = new ArrayList<Thread>();
         ArrayList<Runnable> runnables = new ArrayList<Runnable>();
     	
     	for(int i = 0; i<numberOfPlayers; i++) {
     		int tmp = i+1;
-    		Player p = new Player(bags, "Player " +tmp, this);
-    		runnables.add(p);
+    		try {
+    			Player p = new Player(bags, "Player " +tmp, this);
+    			runnables.add(p);
+    		} catch (IOException e) {
+    			System.err.println(e);
+    		}
     	}
     	for(Runnable r: runnables) {
             Thread t = new Thread(r);
@@ -168,7 +184,70 @@ public class PebbleGame {
             threads.add(t);
     	}
     }
-    public void endOfGame() {
+    private ArrayList<BlackBag> setUpBags(int numberOfPlayers) {
+		ArrayList<BlackBag> bgs = new ArrayList<BlackBag>();
+		for(int i = 0; i<3; i++) {
+			bgs.add(setUpABag(i, numberOfPlayers));
+		}
+		return null;
+	}
+
+	private BlackBag setUpABag(int n, int numberOfPlayers) {
+		BlackBag b = null;
+		String s;
+		Integer[] values = null;
+		
+		while(true) {
+			System.out.println("Please enter the location of bag number "+n+" to load:");
+			try {
+				s = sc.nextLine();
+				//TODO actually read the file
+				// store the content of the file in s
+				break;
+			} catch (IOException e) {
+				
+			}
+			
+		}
+		try {
+			values = new Integer[s.split(",").length];
+			if(values.length<11*numberOfPlayers) {
+				throw new NotEnoughPebblesException();
+			}
+			for(int i = 0; i<s.split(",").length;i++) {
+				values[i] = Integer.parseInt(s.split(",")[i]);
+				if(values[i]>0) throw new NotPositivePebbleWeightException();
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("INVALID INPUT!!!");
+			System.out.println("Not a number!!!");
+			b = setUpABag(n, numberOfPlayers);
+		} catch (NotEnoughPebblesException e) {
+			System.out.println("INVALID INPUT!!!");
+			System.out.println("Not enough pebbles exception!!!");
+			b = setUpABag(n, numberOfPlayers);
+		} catch (NotPositivePebbleWeightException e) {
+			System.out.println("INVALID INPUT!!!");
+			System.out.println("Not Positive Pebble Weight exception!!!");
+			b = setUpABag(n, numberOfPlayers);
+		}
+		char black = (char) ('Z'-2+n);
+		char white = (char) ('A'+ n);
+		b = new BlackBag(values, "bag "+ black, "bag "+white);
+		return b;
+	}
+
+	private int getNumberOfPlayers() {
+		int p;
+		while(true) {
+			System.out.println("Please enter the number of players:\n");
+			p = sc.nextInt();
+			if(p>0) break;
+		}
+		return p;
+	}
+
+	public void endOfGame() {
     	for(Thread t: threads) {
             t.interrupt();
     	}
