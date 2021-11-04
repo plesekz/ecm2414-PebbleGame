@@ -35,5 +35,10 @@ public class BlackBag extends Bag{
 	public WhiteBag getPairedBag(){
 		return this.pairedBag;
 	}
+	
+	@Override
+	public String getPairName() {
+		return pairedBag.getName();
+	}
 
 }
