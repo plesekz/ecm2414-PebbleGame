@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.io.BufferedWriter;
@@ -6,7 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class PebbleGame {
-	ArrayList<Runnable> threads;
+    ArrayList<Thread> threads;
 
     private class Player implements Runnable{
     	PebbleGame g;
@@ -139,6 +140,7 @@ public class PebbleGame {
                 }
                 System.out.println(victoryMessage);
                 // Kill the other threads here
+                g.endOfGame();
             }
         }
     }
@@ -152,20 +154,23 @@ public class PebbleGame {
     public void game() {
     	ArrayList<BlackBag> bags = setUpBags();
     	int numberOfPlayers = getNumberOfPlayers();
-    	threads = new ArrayList<Runnable>();
+        threads = new ArrayList<Thread>;
+        ArrayList<Runnable> runnables = new ArrayList<Runnable>();
     	
     	for(int i = 0; i<numberOfPlayers; i++) {
     		int tmp = i+1;
     		Player p = new Player(bags, "Player " +tmp, this);
-    		threads.add(p);
+    		runnables.add(p);
     	}
-    	for(Runnable r:threads) {
-    		r.run();
+    	for(Runnable r: runnables) {
+            Thread t = new Thread(r);
+    		t.start();
+            threads.add(t);
     	}
     }
     public void endOfGame() {
-    	for(Runnable r:threads) {
-    		r.
+    	for(Thread t: threads) {
+            t.interrupt();
     	}
     }
 }
