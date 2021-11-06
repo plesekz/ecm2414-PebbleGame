@@ -101,6 +101,7 @@ public class PebbleGame {
             Message.append(discardedPebble);
             Message.append(" to ");
             Message.append(lastBagChosen.getPairName());
+            Message.append(" ");
             Message.append(Name);
             Message.append(" hand is ");
             for(Integer I: hand){

@@ -24,6 +24,6 @@ public class PebbleGameTest {
 
     @Test
     public void endOfGame() {
-        // Check if only one thread wins
+        // TODO: Check if only one thread wins
     }
 }
