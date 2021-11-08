@@ -214,6 +214,7 @@ public class PebbleGame {
 			System.out.println("Please enter the location of bag number "+n+" to load:");
 			try {
 				s = sc.nextLine();
+				if(s.equals("E")||s.equals("e")) System.exit(0);
                 BufferedReader r = new BufferedReader(new FileReader(s));
                 s = r.readLine();
 				// store the content of the file in s
