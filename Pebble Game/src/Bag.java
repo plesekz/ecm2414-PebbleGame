@@ -22,4 +22,5 @@ public class Bag {
 	public ArrayList<Integer> getContent() {
 		return content;
 	}
+
 }

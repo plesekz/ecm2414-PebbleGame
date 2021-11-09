@@ -66,19 +66,32 @@ public class BlackBagTest {
         Integer previousPebble = 0;
         Integer currentPebble = null;
         Boolean flag = false;
-        for(int i = 0; i < 200; i++){
-            testBlackBag.putInPebble(4);
-            testBlackBag.putInPebble(5);
+        Integer[] pebbles = {1};
+        BlackBag bag = new BlackBag(pebbles, "TestBag", "TestWhiteBag");
+        testBlackBag = bag;
+        int hit0 = 0;
+        int hit1 = 0;
+        int hit2 = 0;
+        for(int i = 0; i < 10000; i++){
+            testBlackBag.putInPebble(0);
+            testBlackBag.putInPebble(1);
+            testBlackBag.putInPebble(2);
+            testBlackBag.getPebble();
             currentPebble = testBlackBag.getPebble();
-            System.out.println(currentPebble);
-            if(currentPebble != previousPebble) {
-                flag = true;
-                break;
+            if(currentPebble == 0){
+                hit0++;
+            }
+            else if(currentPebble == 1){
+                hit1++;
+            }
+            else if(currentPebble == 2){
+                hit2++;
             }
             testBlackBag.getPebble();
-            previousPebble = currentPebble;
         }
-        assertTrue(flag);
+        assertEquals(3333, hit0, 100);
+        assertEquals(3333, hit1, 100);
+        assertEquals(3333, hit2, 100);
     }
 
     @Test
