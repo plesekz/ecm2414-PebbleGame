@@ -18,4 +18,8 @@ public class Bag {
 	public Bag getPairedBag() {
 		return pairedBag;
 	}
+
+	public ArrayList<Integer> getContent() {
+		return content;
+	}
 }

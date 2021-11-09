@@ -5,9 +5,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class PebbleGameTest {
-
+    private PebbleGame testGame;
     @Before
     public void setUp() throws Exception {
+        testGame = new PebbleGame();
     }
 
     @After
