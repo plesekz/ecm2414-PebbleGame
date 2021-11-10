@@ -139,6 +139,7 @@ public class PebbleGame {
             	synchronized (Player.class){
             		//Handling discarding
             		discardedPebble = discardPebble();
+            		lastBagChosen.putInPebble(discardedPebble);
             		
             		//Handling drawing
             		Collections.shuffle(availableBags);
@@ -315,6 +316,7 @@ public class PebbleGame {
     	for(Thread t: threads) {
     		t.start();    
     	}
+    	System.out.println("The game is running.");
     	
     	//Allows to end the program by typing 'E' or 'e' into the console.
     	String s = null;
@@ -335,7 +337,7 @@ public class PebbleGame {
      */
     private ArrayList<BlackBag> setUpBags(int numberOfPlayers, int numberOfBags) {
 		ArrayList<BlackBag> bgs = new ArrayList<BlackBag>();
-        sc.nextLine(); //used to move the reader to the eof of the console
+        //sc.nextLine(); //used to move the reader to the eof of the console
 		for(int i = 0; i<numberOfBags; i++) {
 			bgs.add(setUpABag(i, numberOfPlayers));
 		}
