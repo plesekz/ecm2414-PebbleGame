@@ -199,25 +199,26 @@ public class PebbleGameTest {
      * Function that tests if the NumberFormatException is properly thrown and caught by the setUpABag method's logic
      * Expected output is the failure condition of INVALID INPUT!!! Not a number!!! being generated
      */
-  //  @Test
-    //    public void testSetUpABagBadFormatting() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    @Test
+        public void testSetUpABagBadFormatting() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+            Method parseContent = Game.getClass().getDeclaredMethod("parseContent", String.class, int.class);
+            parseContent.setAccessible(true);
+        String s = "1,2,3,4,5,6,7,8,9,10,11,twenty bajillion,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40";
+        Exception exception = (Exception) assertThrows(InvocationTargetException.class, () -> parseContent.invoke(Game, s, 3));
+        assertEquals(CannotParseException.class, exception.getCause().getClass());
+        }
+
+    ///**
+    //     * Function that tests if the IOException is properly thrown and caught by the setUpABag method's logic
+    //     * Expected output is the failure condition of INVALID INPUT!!! Invalid File!! being generated
+    //     */
+    //    @Test
+    //    public void tesSetUpABagInvalidFile() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     //        Method setUpABag = Game.getClass().getDeclaredMethod("setUpABag", int.class, int.class, String.class);
     //        setUpABag.setAccessible(true);
-    //        BlackBag testBlackBag = (BlackBag)
+    //        BlackBag testBlackBag = (BlackBag) setUpABag.invoke(Game, 0, 3, "badly_fd.csv");
     //        // assertThrows();
     //    }
-
-    /**
-     * Function that tests if the IOException is properly thrown and caught by the setUpABag method's logic
-     * Expected output is the failure condition of INVALID INPUT!!! Invalid File!! being generated
-     */
-    @Test
-    public void tesSetUpABagInvalidFile() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method setUpABag = Game.getClass().getDeclaredMethod("setUpABag", int.class, int.class, String.class);
-        setUpABag.setAccessible(true);
-        BlackBag testBlackBag = (BlackBag) setUpABag.invoke(Game, 0, 3, "badly_fd.csv");
-        // assertThrows();
-    }
 
   //  @Test
     //    public void testSetUpBags() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -249,20 +250,20 @@ public class PebbleGameTest {
     //        }
     //    }
 
-    @Test
-    public void testGetNumberOfPlayers() throws NoSuchMethodException {
-        Method getNumberOfPlayers = Game.getClass().getDeclaredMethod("getNumberOfPlayers", int.class);
-        getNumberOfPlayers.setAccessible(true);
-        fail("Not Implemented Yet");
-
-    }
-
-    @Test
-    public void testGetNumberOfPlayersZero() throws NoSuchMethodException {
-        Method getNumberOfPlayers = Game.getClass().getDeclaredMethod("getNumberOfPlayers", int.class);
-        getNumberOfPlayers.setAccessible(true);
-        fail("Not Implemented Yet");
-
-    }
+    //@Test
+    //    public void testGetNumberOfPlayers() throws NoSuchMethodException {
+    //        Method getNumberOfPlayers = Game.getClass().getDeclaredMethod("getNumberOfPlayers", int.class);
+    //        getNumberOfPlayers.setAccessible(true);
+    //
+    //
+    //    }
+    //
+    //    @Test
+    //    public void testGetNumberOfPlayersZero() throws NoSuchMethodException {
+    //        Method getNumberOfPlayers = Game.getClass().getDeclaredMethod("getNumberOfPlayers", int.class);
+    //        getNumberOfPlayers.setAccessible(true);
+    //        fail("Not Implemented Yet");
+    //
+    //    }
 
 }

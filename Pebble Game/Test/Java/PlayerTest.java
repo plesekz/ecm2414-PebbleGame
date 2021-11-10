@@ -47,8 +47,7 @@ public class PlayerTest {
         playerConstructor.setAccessible(true);
 
         // Make a set of identical Blackbags to later insert into PlayerObject
-        Integer[] defaultPebbles = new Integer[1];
-        defaultPebbles[0] = 0;
+        Integer[] defaultPebbles = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100};
         ArrayList<BlackBag> bagArrayList = new ArrayList<>();
         BlackBag defaultBag = new BlackBag(defaultPebbles, "defaultBag", "defaultPairedBag");
         bagArrayList.add(defaultBag);
@@ -232,8 +231,10 @@ public class PlayerTest {
 
     @Test
     public void testCheckVictory(){
+
         // TODO: Check if it actually stops when it gets to 100
         // TODO: IS THIS EVEN A GOOD IDEA TO TEST HERE AS THE METHOD IS IMPLICITLY THREAD DEPENDANT (MAYBE BLACBOK TEST THROUGH PEBBLEGAME?)
         fail("Thing dosent exist yet");
     }
+
 }

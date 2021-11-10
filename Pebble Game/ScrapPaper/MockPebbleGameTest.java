@@ -38,7 +38,7 @@ public class MockPebbleGameTest {
         s.add("example_file_2.txt");
         s.add("example_file_2.txt");
         Game.game(s, 3);
-        fail("Not Implemented Yet");
+        Assert.fail("Not Implemented Yet");
 
     }
 
@@ -57,7 +57,7 @@ public class MockPebbleGameTest {
 
             Game.game(s, 3);
         }
-        fail("Not Implemented Yet");
+        Assert.fail("Not Implemented Yet");
     }
 
 
@@ -75,11 +75,11 @@ public class MockPebbleGameTest {
         BlackBag testBlackBag = (BlackBag) setUpABag.invoke(Game, 2, 3, "example_file_4.csv");
 
         //Check that the blackBag is not null (Would occur if an exception was thrown in MockPebbleGame)
-        assertNotNull(Game.getFailureCondition(), testBlackBag);
+        Assert.assertNotNull(Game.getFailureCondition(), testBlackBag);
 
         //Check that the BlackBag name is bagZ and its pair is bag C
-        assertEquals(testBlackBag.getName(), "bag Z", testBlackBag.getName());
-        assertEquals(testBlackBag.getPairName(), "bag C", testBlackBag.getPairName());
+        Assert.assertEquals(testBlackBag.getName(), "bag Z", testBlackBag.getName());
+        Assert.assertEquals(testBlackBag.getPairName(), "bag C", testBlackBag.getPairName());
 
         // Create lists of the contents of the pebbles inside example_file_4 and of the actual contents of the bag
         Integer[] testContent = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34};
@@ -91,7 +91,7 @@ public class MockPebbleGameTest {
         // Iterate over the content in the bag and check if it matches the expected content
         for (int i=0; i<actualContent.size(); i++) {
             both = "currentActualPebble is " + actualContent.get(i) + "currentExpectedPebble is " + testContent[i];
-            assertSame(both, actualContent.get(i), testContent[i]);
+            Assert.assertSame(both, actualContent.get(i), testContent[i]);
         }
 
     }
@@ -111,9 +111,9 @@ public class MockPebbleGameTest {
         BlackBag testBlackBag = (BlackBag) setUpABag.invoke(Game, 1, 3, "example_file_4.csv");
 
         //Check that the BlackBag name is bag Y and its pair is bag B
-        assertNotNull(Game.getFailureCondition(), testBlackBag);
-        assertEquals(testBlackBag.getName(), "bag Y", testBlackBag.getName());
-        assertEquals(testBlackBag.getPairName(), "bag B", testBlackBag.getPairName());
+        Assert.assertNotNull(Game.getFailureCondition(), testBlackBag);
+        Assert.assertEquals(testBlackBag.getName(), "bag Y", testBlackBag.getName());
+        Assert.assertEquals(testBlackBag.getPairName(), "bag B", testBlackBag.getPairName());
 
         // Create lists of the contents of the pebbles inside example_file_4 and of the actual contents of the bag
         Integer[] testContent = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34};
@@ -126,7 +126,7 @@ public class MockPebbleGameTest {
         // Iterate over the content in the bag and check if it matches the expected content
         for (int i=0; i<actualContent.size(); i++) {
             both = "currentActualPebble is " + actualContent.get(i) + "currentExpectedPebble is " + testContent[i];
-            assertSame(both, actualContent.get(i), testContent[i]);
+            Assert.assertSame(both, actualContent.get(i), testContent[i]);
         }
     }
 
@@ -145,9 +145,9 @@ public class MockPebbleGameTest {
         BlackBag testBlackBag = (BlackBag) setUpABag.invoke(Game, 0, 3, "example_file_4.csv");
 
         //Check that the BlackBag name is bag X and its pair is bag A
-        assertNotNull(Game.getFailureCondition(), testBlackBag);
-        assertEquals(testBlackBag.getName(), "bag X", testBlackBag.getName());
-        assertEquals(testBlackBag.getPairName(), "bag A", testBlackBag.getPairName());
+        Assert.assertNotNull(Game.getFailureCondition(), testBlackBag);
+        Assert.assertEquals(testBlackBag.getName(), "bag X", testBlackBag.getName());
+        Assert.assertEquals(testBlackBag.getPairName(), "bag A", testBlackBag.getPairName());
 
         // Create lists of the contents of the pebbles inside example_file_4 and of the actual contents of the bag
         Integer[] testContent = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34};
@@ -160,7 +160,7 @@ public class MockPebbleGameTest {
         // Iterate over the content in the bag and check if it matches the expected content
         for (int i=0; i<actualContent.size(); i++) {
             both = "currentActualPebble is " + actualContent.get(i) + "currentExpectedPebble is " + testContent[i];
-            assertSame(both, actualContent.get(i), testContent[i]);
+            Assert.assertSame(both, actualContent.get(i), testContent[i]);
         }
     }
 
@@ -173,7 +173,7 @@ public class MockPebbleGameTest {
         Method setUpABag = Game.getClass().getDeclaredMethod("setUpABag", int.class, int.class, String.class);
         setUpABag.setAccessible(true);
         BlackBag testBlackBag = (BlackBag) setUpABag.invoke(Game, 0, 3, "negative_pebbles_1.csv");
-        assertEquals(Game.getFailureCondition(), "INVALID INPUT!!! Not Positive Pebble Weight exception!!!", Game.getFailureCondition());
+        Assert.assertEquals(Game.getFailureCondition(), "INVALID INPUT!!! Not Positive Pebble Weight exception!!!", Game.getFailureCondition());
     }
 
     /**
@@ -185,7 +185,7 @@ public class MockPebbleGameTest {
         Method setUpABag = Game.getClass().getDeclaredMethod("setUpABag", int.class, int.class, String.class);
         setUpABag.setAccessible(true);
         BlackBag testBlackBag = (BlackBag) setUpABag.invoke(Game, 0, 3, "not_enough_pebbles.csv");
-        assertEquals(Game.getFailureCondition(), "INVALID INPUT!!! Not a number!!! Not enough pebbles exception!!!", Game.getFailureCondition());
+        Assert.assertEquals(Game.getFailureCondition(), "INVALID INPUT!!! Not a number!!! Not enough pebbles exception!!!", Game.getFailureCondition());
     }
 
     /**
@@ -197,7 +197,7 @@ public class MockPebbleGameTest {
         Method setUpABag = Game.getClass().getDeclaredMethod("setUpABag", int.class, int.class, String.class);
         setUpABag.setAccessible(true);
         BlackBag testBlackBag = (BlackBag) setUpABag.invoke(Game, 0, 3, "badly_formatted.csv");
-        assertEquals(Game.getFailureCondition(), "INVALID INPUT!!! Not a number!!!", Game.getFailureCondition());
+        Assert.assertEquals(Game.getFailureCondition(), "INVALID INPUT!!! Not a number!!!", Game.getFailureCondition());
     }
 
     /**
@@ -209,7 +209,7 @@ public class MockPebbleGameTest {
         Method setUpABag = Game.getClass().getDeclaredMethod("setUpABag", int.class, int.class, String.class);
         setUpABag.setAccessible(true);
         BlackBag testBlackBag = (BlackBag) setUpABag.invoke(Game, 0, 3, "badly_fd.csv");
-        assertEquals(Game.getFailureCondition(), "INVALID INPUT!!! Invalid File!!", Game.getFailureCondition());
+        Assert.assertEquals(Game.getFailureCondition(), "INVALID INPUT!!! Invalid File!!", Game.getFailureCondition());
     }
 
     @Test
@@ -224,15 +224,15 @@ public class MockPebbleGameTest {
         s.add("example_file_4.csv");
         s.add("example_file_4.csv");
         ArrayList<BlackBag> testBlackBags = (ArrayList<BlackBag>) setUpBags.invoke(Game, 3, s );
-        assertNotNull(Game.getFailureCondition(), testBlackBags.get(2));
-        assertNotNull(Game.getFailureCondition(), testBlackBags.get(1));
-        assertNotNull(Game.getFailureCondition(), testBlackBags.get(0));
-        assertEquals("bag Z", testBlackBags.get(2).getName());
-        assertEquals("bag C", testBlackBags.get(2).getPairName());
-        assertEquals("bag Y", testBlackBags.get(1).getName());
-        assertEquals("bag B", testBlackBags.get(1).getPairName());
-        assertEquals("bag X", testBlackBags.get(0).getName());
-        assertEquals("bag A", testBlackBags.get(0).getPairName());
+        Assert.assertNotNull(Game.getFailureCondition(), testBlackBags.get(2));
+        Assert.assertNotNull(Game.getFailureCondition(), testBlackBags.get(1));
+        Assert.assertNotNull(Game.getFailureCondition(), testBlackBags.get(0));
+        Assert.assertEquals("bag Z", testBlackBags.get(2).getName());
+        Assert.assertEquals("bag C", testBlackBags.get(2).getPairName());
+        Assert.assertEquals("bag Y", testBlackBags.get(1).getName());
+        Assert.assertEquals("bag B", testBlackBags.get(1).getPairName());
+        Assert.assertEquals("bag X", testBlackBags.get(0).getName());
+        Assert.assertEquals("bag A", testBlackBags.get(0).getPairName());
         Integer[] testContent = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34};
         String both;
         for (BlackBag b: testBlackBags) {
@@ -240,7 +240,7 @@ public class MockPebbleGameTest {
             Collections.sort(actualContent);
             for (int i=0; i<actualContent.size(); i++) {
                 both = "currentActualPebble is " + actualContent.get(i) + "currentExpectedPebble is " + testContent[i];
-                assertSame(both, actualContent.get(i), testContent[i]);
+                Assert.assertSame(both, actualContent.get(i), testContent[i]);
             }
         }
     }
@@ -249,7 +249,7 @@ public class MockPebbleGameTest {
     public void testGetNumberOfPlayers() throws NoSuchMethodException {
         Method getNumberOfPlayers = Game.getClass().getDeclaredMethod("getNumberOfPlayers", int.class);
         getNumberOfPlayers.setAccessible(true);
-         fail("Not Implemented Yet");
+         Assert.fail("Not Implemented Yet");
 
     }
 
@@ -257,7 +257,7 @@ public class MockPebbleGameTest {
     public void testGetNumberOfPlayersZero() throws NoSuchMethodException {
         Method getNumberOfPlayers = Game.getClass().getDeclaredMethod("getNumberOfPlayers", int.class);
         getNumberOfPlayers.setAccessible(true);
-        fail("Not Implemented Yet");
+        Assert.fail("Not Implemented Yet");
 
     }
 
