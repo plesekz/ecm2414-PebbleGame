@@ -74,14 +74,20 @@ public class PlayerTest {
      */
     @Test
     public void testDiscardPebbleOnePebble() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, NoSuchFieldException {
+
+        // Store and set hand field of player object to an integer LinkedList called default hand containing 1
         Field handField = playerObject.getClass().getDeclaredField("hand");
         handField.setAccessible(true);
         LinkedList<Integer> defaultHand = new LinkedList<>();
         defaultHand.add(1);
         handField.set(playerObject, defaultHand);
+
+        
         Method discardPebbleMethod = playerObject.getClass().getDeclaredMethod("discardPebble");
         discardPebbleMethod.setAccessible(true);
         Integer i = (Integer) discardPebbleMethod.invoke(playerObject);
+
+        // Check if the correct Pebble was discarded and that the hand is now empty
         assertEquals(1, (int) i);
         assertEquals(0, defaultHand.size());
     }
@@ -152,7 +158,7 @@ public class PlayerTest {
     }
 
     /**
-     * Function to check if the correct lines are written when the logDiscarded method is invoked
+     * Function to check if the correct lines are written when the logDiscarded method is invoked with a pebble of 2 being discarded and an old hand of 1
      * Expected outcome is:
      * Line 1: main has discarded a 2 to defaultPairedBag
      * Line 2: main hand is [ 1,]
