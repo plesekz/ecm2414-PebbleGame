@@ -19,7 +19,6 @@ public class PebbleGameTest {
     @Before
     public void setUp() {
         Game = new PebbleGame();
-
     }
 
     /**
@@ -40,20 +39,33 @@ public class PebbleGameTest {
      * Expected output is a BlackBag named Bag Z with a paired WhiteBag named Bag C and containing a hand of the integers 1-34
      */
     @Test
-    public void testSetUpABagZ() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void testSetUpABagZ() throws InterruptedException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
-        // Store and set setUpABag method to be accessible outside the MockPebbleGame
-        Method setUpABag = Game.getClass().getDeclaredMethod("setUpABag", int.class, int.class, String.class);
-        setUpABag.setAccessible(true);
+        // Store and set bagFactory method to be accessible outside the MockPebbleGame
+        Method bagFactory = Game.getClass().getDeclaredMethod("bagFactory", Integer[].class, int.class);
+        bagFactory.setAccessible(true);
 
-        BlackBag testBlackBag = (BlackBag) setUpABag.invoke(Game, 2, 3, "example_file_4.csv");
 
+        Integer[] testContent = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34};
+
+        Thread t = new Thread(new Runnable()  {
+            @Override
+            public void run()  {
+                try {
+                    Thread.currentThread().wait(1000);
+                    fail("Time ran out");
+                }
+                catch(InterruptedException e){
+                }
+            }
+        }) ;
+        BlackBag testBlackBag = (BlackBag) bagFactory.invoke(Game, testContent, 2);
+        t.interrupt();
         //Check that the BlackBag name is bagZ and its pair is bag C
         assertEquals(testBlackBag.getName(), "bag Z", testBlackBag.getName());
         assertEquals(testBlackBag.getPairName(), "bag C", testBlackBag.getPairName());
 
         // Create lists of the contents of the pebbles inside example_file_4 and of the actual contents of the bag
-        Integer[] testContent = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34};
         LinkedList<Integer> actualContent = testBlackBag.getContent();
         // Because the contents will be randomized upon being inserted into the BlackBag we need to sort the content so that it is in ascending order again
         Collections.sort(actualContent);
@@ -74,18 +86,30 @@ public class PebbleGameTest {
     @Test
     public void testSetUpABagY() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
-        // Store and set setUpABag method to be accessible outside the MockPebbleGame
-        Method setUpABag = Game.getClass().getDeclaredMethod("setUpABag", int.class, int.class, String.class);
-        setUpABag.setAccessible(true);
+        // Store and set bagFactory method to be accessible outside the MockPebbleGame
+        Method bagFactory = Game.getClass().getDeclaredMethod("bagFactory", Integer[].class, int.class);
+        bagFactory.setAccessible(true);
 
+        Integer[] testContent = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34};
+
+        Thread t = new Thread(new Runnable()  {
+            @Override
+            public void run()  {
+                try {
+                    Thread.currentThread().wait(1000);
+                    fail("Time ran out");
+                }
+                catch(InterruptedException e){
+                }
+            }
+        }) ;
         //Check that the blackBag is not null (Would occur if an exception was thrown in MockPebbleGame)
-        BlackBag testBlackBag = (BlackBag) setUpABag.invoke(Game, 1, 3, "example_file_4.csv");
-
+        BlackBag testBlackBag = (BlackBag) bagFactory.invoke(Game, testContent, 1);
+        t.interrupt();
         assertEquals(testBlackBag.getName(), "bag Y", testBlackBag.getName());
         assertEquals(testBlackBag.getPairName(), "bag B", testBlackBag.getPairName());
 
         // Create lists of the contents of the pebbles inside example_file_4 and of the actual contents of the bag
-        Integer[] testContent = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34};
         LinkedList<Integer> actualContent = testBlackBag.getContent();
         // Because the contents will be randomized upon being inserted into the BlackBag we need to sort the content so that it is in ascending order again
         Collections.sort(actualContent);
@@ -112,10 +136,19 @@ public class PebbleGameTest {
 
         // Create lists of the contents of the pebbles inside example_file_4 and of the actual contents of the bag
         Integer[] testContent = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34};
-
-        //Check that the blackBag is not null (Would occur if an exception was thrown in MockPebbleGame)
-        BlackBag testBlackBag = (BlackBag) bagFactory.invoke(Game,  testContent, 3);
-
+        Thread t = new Thread(new Runnable()  {
+            @Override
+            public void run()  {
+                try {
+                    Thread.currentThread().wait(1000);
+                    fail("Time ran out");
+                }
+                catch(InterruptedException e){
+                }
+            }
+        }) ;
+        BlackBag testBlackBag = (BlackBag) bagFactory.invoke(Game,  testContent, 0);
+        t.interrupt();
         //Check that the BlackBag name is bag X and its pair is bag A
         assertEquals(testBlackBag.getName(), "bag X", testBlackBag.getName());
         assertEquals(testBlackBag.getPairName(), "bag A", testBlackBag.getPairName());
@@ -186,35 +219,35 @@ public class PebbleGameTest {
         // assertThrows();
     }
 
-    @Test
-    public void testSetUpBags() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-
-
-        Method setUpBags = Game.getClass().getDeclaredMethod("setUpBags", int.class, ArrayList.class);
-        setUpBags.setAccessible(true);
-
-        ArrayList<String> s = new ArrayList<>();
-        s.add("example_file_4.csv");
-        s.add("example_file_4.csv");
-        s.add("example_file_4.csv");
-        ArrayList<BlackBag> testBlackBags = (ArrayList<BlackBag>) setUpBags.invoke(Game, 3, s );
-        assertEquals("bag Z", testBlackBags.get(2).getName());
-        assertEquals("bag C", testBlackBags.get(2).getPairName());
-        assertEquals("bag Y", testBlackBags.get(1).getName());
-        assertEquals("bag B", testBlackBags.get(1).getPairName());
-        assertEquals("bag X", testBlackBags.get(0).getName());
-        assertEquals("bag A", testBlackBags.get(0).getPairName());
-        Integer[] testContent = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34};
-        String both;
-        for (BlackBag b: testBlackBags) {
-            LinkedList<Integer> actualContent = b.getContent();
-            Collections.sort(actualContent);
-            for (int i=0; i<actualContent.size(); i++) {
-                both = "currentActualPebble is " + actualContent.get(i) + "currentExpectedPebble is " + testContent[i];
-                assertSame(both, actualContent.get(i), testContent[i]);
-            }
-        }
-    }
+  //  @Test
+    //    public void testSetUpBags() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    //
+    //
+    //        Method setUpBags = Game.getClass().getDeclaredMethod("setUpBags", int.class, ArrayList.class);
+    //        setUpBags.setAccessible(true);
+    //
+    //        ArrayList<String> s = new ArrayList<>();
+    //        s.add("example_file_4.csv");
+    //        s.add("example_file_4.csv");
+    //        s.add("example_file_4.csv");
+    //        ArrayList<BlackBag> testBlackBags = (ArrayList<BlackBag>) setUpBags.invoke(Game, 3, s );
+    //        assertEquals("bag Z", testBlackBags.get(2).getName());
+    //        assertEquals("bag C", testBlackBags.get(2).getPairName());
+    //        assertEquals("bag Y", testBlackBags.get(1).getName());
+    //        assertEquals("bag B", testBlackBags.get(1).getPairName());
+    //        assertEquals("bag X", testBlackBags.get(0).getName());
+    //        assertEquals("bag A", testBlackBags.get(0).getPairName());
+    //        Integer[] testContent = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34};
+    //        String both;
+    //        for (BlackBag b: testBlackBags) {
+    //            LinkedList<Integer> actualContent = b.getContent();
+    //            Collections.sort(actualContent);
+    //            for (int i=0; i<actualContent.size(); i++) {
+    //                both = "currentActualPebble is " + actualContent.get(i) + "currentExpectedPebble is " + testContent[i];
+    //                assertSame(both, actualContent.get(i), testContent[i]);
+    //            }
+    //        }
+    //    }
 
     @Test
     public void testGetNumberOfPlayers() throws NoSuchMethodException {

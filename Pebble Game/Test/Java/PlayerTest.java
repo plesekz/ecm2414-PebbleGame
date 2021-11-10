@@ -146,7 +146,7 @@ public class PlayerTest {
             handField.set(playerObject, defaultHand);
             }
 
-        // Check if each pebbled has been discarded roughly the same amount of times
+        // Check if each pebble has been discarded roughly the same amount of times
         assertEquals(3333, hit1, 100);
         assertEquals(3333, hit2, 100);
         assertEquals(3333, hit3, 100);
