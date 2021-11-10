@@ -108,15 +108,17 @@ public class PebbleGame {
             hand = new LinkedList<Integer>();
             Integer drawnPebble = null;
             for(int i = 0; i < 10; i++){
-            	Collections.shuffle(availableBags);
-                lastBagChosen = availableBags.get(0);
-                try {
-                    drawnPebble = lastBagChosen.getPebble();
-                    hand.add(drawnPebble);
-                    break;
-                } catch (EmptyBagException e) {
-                    
-                }
+            	while(true) {
+            		Collections.shuffle(availableBags);
+                	lastBagChosen = availableBags.get(0);
+                	try {
+                    	drawnPebble = lastBagChosen.getPebble();
+                    	hand.add(drawnPebble);
+                    	break;
+                	} catch (EmptyBagException e) {
+                    	
+                	}
+            	}
             }
             //check whether the initial hand is a victorious one
             checkVictory();
@@ -203,13 +205,7 @@ public class PebbleGame {
             Message.append(discardedPebble);
             Message.append(" to ");
             Message.append(lastBagChosen.getPairName());
-            Message.append(" ");
-            Message.append(Name);
-            Message.append(" hand is ");
-            for(Integer I: hand){
-                Message.append(I);
-                Message.append(", ");
-            }
+            Message.append(".\n");
             try{
                 output.write(Message.toString());
                 output.flush();
@@ -232,7 +228,7 @@ public class PebbleGame {
             Message.append(drawnPebble);
             Message.append(" from ");
             Message.append(lastBagChosen.getName());
-            Message.append("/r/n");
+            Message.append("\n");
             Message.append(Name);
             Message.append(" hand is ");
             Message.append("[");
@@ -241,7 +237,7 @@ public class PebbleGame {
                 Message.append(I);
                 Message.append(",");
             }
-            Message.append("]");
+            Message.append("]\n");
             try{
                 output.write(Message.toString());
                 output.flush();

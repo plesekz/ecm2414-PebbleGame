@@ -1,5 +1,0 @@
-
-
-Game begins!
-
-Player 3 has discarded a 50 to bag A Player 3 hand is 2, Player 3 has drawn a 2 from bag X/r/nPlayer 3 hand is [ 2,]Player 3 has discarded a 2 to bag B Player 3 hand is 90, Player 3 has drawn a 90 from bag Y/r/nPlayer 3 hand is [ 90,]Player 3 has discarded a 90 to bag B Player 3 hand is 65, Player 3 has drawn a 65 from bag Y/r/nPlayer 3 hand is [ 65,]Player 3 has discarded a 65 to bag C Player 3 hand is 100, Player 3 has drawn a 100 from bag Z/r/nPlayer 3 hand is [ 100,]
