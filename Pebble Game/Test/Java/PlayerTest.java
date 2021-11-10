@@ -155,7 +155,7 @@ public class PlayerTest {
      * Function to check if the correct lines are written when the logDiscarded method is invoked
      * Expected outcome is:
      * Line 1: main has discarded a 2 to defaultPairedBag
-     * Line 2: main hand is 1,
+     * Line 2: main hand is [ 1,]
      */
     @Test
     public void testLogDiscarded() throws IOException, NoSuchFieldException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
@@ -185,8 +185,9 @@ public class PlayerTest {
             fileStrings.add(strCurrentLine);
         }
 
-        assertEquals("main has discarded a 2 to defaultPairedBag", fileStrings.get(0));
-        assertEquals("main hand is 1, ", fileStrings.get(1));
+        int size = fileStrings.size();
+        assertEquals("main has discarded a 2 to defaultPairedBag.", fileStrings.get(size - 2));
+        assertEquals("main hand is [ 1,]", fileStrings.get(size - 1));
 
 
     }
@@ -195,7 +196,7 @@ public class PlayerTest {
      * Function to check if the correct lines are written when the logAdded method is invoked
      * Expected outcome is:
      * Line 1: main has drawn a 2 from defaultBag
-     * Line 2: main hand is 1,
+     * Line 2: main hand is [ 1,]
      */
     @Test
     public void testLogAdded() throws IOException, NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
@@ -224,17 +225,10 @@ public class PlayerTest {
             fileStrings.add(strCurrentLine);
         }
 
-
-        assertEquals("main has drawn a 2 from defaultBag", fileStrings.get(0));
-        assertEquals("main hand is 1, ", fileStrings.get(1));
+        int size = fileStrings.size();
+        assertEquals("main has drawn a 2 from defaultBag", fileStrings.get(size - 2));
+        assertEquals("main hand is [ 1,]", fileStrings.get(size -1));
     }
 
-    @Test
-    public void testCheckVictory(){
-
-        // TODO: Check if it actually stops when it gets to 100
-        // TODO: IS THIS EVEN A GOOD IDEA TO TEST HERE AS THE METHOD IS IMPLICITLY THREAD DEPENDANT (MAYBE BLACBOK TEST THROUGH PEBBLEGAME?)
-        fail("Thing dosent exist yet");
-    }
 
 }

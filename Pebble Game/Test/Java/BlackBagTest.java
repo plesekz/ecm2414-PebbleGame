@@ -2,7 +2,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static org.junit.Assert.*;
@@ -154,12 +153,14 @@ public class BlackBagTest {
     }
 
     /**
-     * Function to destroy all
-     * Function calls itself recursively if setting up of the BlackBag fails because of
-     * an improper file.
+     * Function to test the putInPebble method of the BlackBag Class
+     * Tests the method by calling the method twice with one pebble as the argument each time,
+     * then the corresponding whiteBag's are emptied and checked for the two pebbles
+     * Expected output is the array of the two pebble integers inserted matching the contents emptied
      */
     @Test
     public void putInPebble() {
+
         testBlackBag.putInPebble(4);
         testBlackBag.putInPebble(5);
         LinkedList<Integer> whiteBagContents = testWhiteBag.empty();

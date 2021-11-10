@@ -206,6 +206,15 @@ public class PebbleGame {
             Message.append(" to ");
             Message.append(lastBagChosen.getPairName());
             Message.append(".\n");
+			Message.append(Name);
+			Message.append(" hand is ");
+			Message.append("[");
+			for(Integer I: hand){
+				Message.append(" ");
+				Message.append(I);
+				Message.append(",");
+			}
+			Message.append("]\n");
             try{
                 output.write(Message.toString());
                 output.flush();
