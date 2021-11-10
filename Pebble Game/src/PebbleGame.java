@@ -435,14 +435,17 @@ public class PebbleGame {
 		}catch (CannotParseException e) {
 			b = setUpABag(n, numberOfPlayers);
 		}
-		
-		//names the (paired) bag(s)
+
+		return bagFactory(values, n);
+	}
+
+	private BlackBag bagFactory(Integer[] values, int n){
 		char black = (char) ('Z'-2+n);
 		char white = (char) ('A'+ n);
-		
+
 		//creates the (paired) bag(s)
-		b = new BlackBag(values, "bag "+ black, "bag "+white);
-		
+		BlackBag b = new BlackBag(values, "bag "+ black, "bag "+white);
+
 		return b;
 	}
 
