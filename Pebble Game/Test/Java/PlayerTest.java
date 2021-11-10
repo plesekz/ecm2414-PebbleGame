@@ -162,19 +162,16 @@ public class PlayerTest {
 
         Integer o = 2;
 
-        //store and set the hand field of the playerObject to be accesible out of the private Player clss
-        Field handField = playerObject.getClass().getDeclaredField("hand");
-        handField.setAccessible(true);
 
-        //Create a default hand, add one to it and set the handField to be it
+        //Create a default hand, add one to it
         LinkedList<Integer> defaultHand = new LinkedList<>();
         defaultHand.add(1);
-        handField.set(playerObject, defaultHand);
 
         // Store and set the logDiscarded method to be accessible outside the class and then invoke it with 2 as the pebble that has been discarded from playerObject
-        Method logDiscardMethod = playerObject.getClass().getDeclaredMethod("logDiscarded", Integer.class);
+        // Also invoke it with defaultHand as the old hand
+        Method logDiscardMethod = playerObject.getClass().getDeclaredMethod("logDiscarded", Integer.class, LinkedList.class);
         logDiscardMethod.setAccessible(true);
-        logDiscardMethod.invoke(playerObject,  o);
+        logDiscardMethod.invoke(playerObject,  o, defaultHand);
 
         String strCurrentLine ;
         ArrayList<String> fileStrings = new ArrayList<>();
@@ -226,7 +223,7 @@ public class PlayerTest {
         }
 
         int size = fileStrings.size();
-        assertEquals("main has drawn a 2 from defaultBag", fileStrings.get(size - 2));
+        assertEquals("main has drawn a 2 from defaultBag.", fileStrings.get(size - 2));
         assertEquals("main hand is [ 1,]", fileStrings.get(size -1));
     }
 

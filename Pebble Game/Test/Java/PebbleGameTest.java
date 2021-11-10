@@ -38,7 +38,7 @@ public class PebbleGameTest {
      * Expected output is a BlackBag named Bag Z with a paired WhiteBag named Bag C and containing a hand of the integers 1-34
      */
     @Test
-    public void testSetUpABagZ() throws  NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void testBagFactoryZ() throws  NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         // Store and set bagFactory method to be accessible outside the MockPebbleGame
         Method bagFactory = Game.getClass().getDeclaredMethod("bagFactory", Integer[].class, int.class);
@@ -74,7 +74,7 @@ public class PebbleGameTest {
      * Expected output is a BlackBag named Bag Y with a paired WhiteBag named Bag B and containing a hand of the integers 1-34
      */
     @Test
-    public void testSetUpABagY() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void testBagFactoryY() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         // Store and set bagFactory method to be accessible outside the MockPebbleGame
         Method bagFactory = Game.getClass().getDeclaredMethod("bagFactory", Integer[].class, int.class);
@@ -110,7 +110,7 @@ public class PebbleGameTest {
      * Expected output is a BlackBag named Bag X with a paired WhiteBag named Bag A and containing a hand of the integers 1-34
      */
     @Test
-    public void testSetUpABagX() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void testBagFactoryX() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         // Store and set bagFactory method to be accessible outside the MockPebbleGame
         Method bagFactory = Game.getClass().getDeclaredMethod("bagFactory", Integer[].class, int.class);
@@ -177,7 +177,7 @@ public class PebbleGameTest {
     }
 
     /**
-     * Function that tests if the NotPositivePebblesException is properly thrown and caught by the setUpABag method's logic
+     * Function that tests if the NotPositivePebblesException is properly thrown and caught by the parseContent's method's logic
      * This is for the case where the negative pebble is at the end of the array
      * Expected output is the CannotParseException being thrown
      */
@@ -195,11 +195,11 @@ public class PebbleGameTest {
 
 
     /**
-     * Function that tests if the NotEnoughPebblesException is properly thrown and caught by the setUpABag method's logic
+     * Function that tests if the NotEnoughPebblesException is properly thrown and caught by the parseContent's method's logic
      * Expected output is the CannotParseException being thrown
      */
     @Test
-    public void testSetUpABagNotEnoughPebbles() throws NoSuchMethodException  {
+    public void testParseContentBagNotEnoughPebbles() throws NoSuchMethodException  {
         Method parseContent = Game.getClass().getDeclaredMethod("parseContent", String.class, int.class);
         parseContent.setAccessible(true);
         String s = "1,2, 3, 4";
@@ -211,12 +211,12 @@ public class PebbleGameTest {
     }
 
     /**
-     * Function that tests if the NumberFormatException is properly thrown and caught by the setUpABag method's logic
+     * Function that tests if the NumberFormatException is properly thrown and caught by the parseContent's method's logic
      * Expected output is the CannotParseException being thrown
      * This is for the case where the non-number is in the middle of the array
      */
     @Test
-        public void testSetUpABagBadFormattingMiddleOfArray() throws NoSuchMethodException  {
+        public void tesParseContentBadFormattingMiddleOfArray() throws NoSuchMethodException  {
             Method parseContent = Game.getClass().getDeclaredMethod("parseContent", String.class, int.class);
             parseContent.setAccessible(true);
         String s = "1,2,3,4,5,6,7,8,9,10,11,twenty bajillion,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40";
@@ -228,12 +228,12 @@ public class PebbleGameTest {
         }
 
     /**
-     * Function that tests if the NumberFormatException is properly thrown and caught by the setUpABag method's logic
+     * Function that tests if the NumberFormatException is properly thrown and caught by the parseContent method's logic
      * Expected output is the CannotParseException being thrown
      * This is for the case where the non-number is at the start of the array
      */
     @Test
-    public void testSetUpABagBadFormattingStartOfArray() throws NoSuchMethodException {
+    public void testParseContentFormattingStartOfArray() throws NoSuchMethodException {
         Method parseContent = Game.getClass().getDeclaredMethod("parseContent", String.class, int.class);
         parseContent.setAccessible(true);
         String s = "twenty trillion,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40";
@@ -245,11 +245,11 @@ public class PebbleGameTest {
     }
 
     /**
-     * Function that tests if the NumberFormatException is properly thrown and caught by the setUpABag method's logic
+     * Function that tests if the NumberFormatException is properly thrown and caught by the parseContents method's logic
      * Expected output is the CannotParseException being thrown
      */
     @Test
-    public void testSetUpABagBadFormattingEndOfArray() throws NoSuchMethodException  {
+    public void testParseContentFormattingEndOfArray() throws NoSuchMethodException  {
         Method parseContent = Game.getClass().getDeclaredMethod("parseContent", String.class, int.class);
         parseContent.setAccessible(true);
         String s = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40, twenty bajillion";
