@@ -154,14 +154,14 @@ public class PebbleGame {
                 			Collections.shuffle(availableBags);
                 		}
                 	}
+
+					//handling logging
+					logDiscarded(discardedPebble);
+					logAdded(drawnPebble);
             	}
                 //handling adding to the hand
                 hand.add(drawnPebble);
-                
-                //handling logging
-                logDiscarded(discardedPebble);
-                logAdded(drawnPebble);
-                
+
                 //checking for victory
                 checkVictory();
             }
