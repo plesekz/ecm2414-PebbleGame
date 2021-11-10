@@ -1,5 +1,4 @@
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -344,6 +343,72 @@ public class PebbleGame {
 	}
     
     /**
+     * Method to get the contents of a file corresponding to a bag N.
+     * @param numberOfTheBag
+     * An int represnting the number of the bag.
+     * @return
+     * A String representing the content o the file.
+     */
+    private String getContentsOfAFile(int numberOfTheBag) {
+    	String s = null;    	
+    	while(true) {
+			System.out.println("Please enter the location of bag number "+numberOfTheBag+" to load:");
+			try {
+				s = sc.nextLine();
+				if(s.equals("E")||s.equals("e")) kill();
+                BufferedReader r = new BufferedReader(new FileReader(s));
+                s = r.readLine();
+				// store the content of the file in s
+                r.close();
+				break;
+			} catch (IOException e) {
+                System.out.println("INVALID INPUT!!!");
+                System.out.println("Invalid File!!");				
+			}
+		}
+    	return s;
+    }
+    
+    /**
+     * A method to parse an input String into an Integer[]
+     * @param s
+     * The String to be parsed.
+     * @param numberOfPlayers
+     * An int representing the number of players in the game.
+     * @return
+     * An Integer[] array holding the weights of all pebbles in the file.
+     * @throws CannotParseException
+     * If the content is for some reason invalid.
+     * Consult the IO for details.
+     */
+    private Integer[] parseContent(String s, int numberOfPlayers) throws CannotParseException {
+    	Integer[] values;
+    	try {
+			values = new Integer[s.split(",").length];
+			if(values.length<11*numberOfPlayers) {
+				throw new NotEnoughPebblesException();
+			}
+			for(int i = 0; i<s.split(",").length;i++) {
+				values[i] = Integer.parseInt(s.split(",")[i]);
+				if(values[i]<0) throw new NotPositivePebbleWeightException();
+			}
+		} catch (NumberFormatException e) {
+			System.out.println("INVALID INPUT!!!");
+			System.out.println("Not a number!!!");
+			throw new CannotParseException();
+		} catch (NotEnoughPebblesException e) {
+			System.out.println("INVALID INPUT!!!");
+			System.out.println("Not enough pebbles exception!!!");
+			throw new CannotParseException();
+		} catch (NotPositivePebbleWeightException e) {
+			System.out.println("INVALID INPUT!!!");
+			System.out.println("Not Positive Pebble Weight exception!!!");
+			throw new CannotParseException();
+		}
+    	return values;
+    }
+    
+    /**
      * Internal function to set up a single BlackBag (and accompanied WhiteBag held within.)
      * Function calls itself recursively if setting up of the BlackBag fails because of
      * an improper file.
@@ -359,52 +424,21 @@ public class PebbleGame {
 		String s;
 		Integer[] values = null;
 
-		//tries to get a valid location
-		while(true) {
-			System.out.println("Please enter the location of bag number "+n+" to load:");
-			try {
-				s = sc.nextLine();
-				if(s.equals("E")||s.equals("e")) System.exit(0);
-                BufferedReader r = new BufferedReader(new FileReader(s));
-                s = r.readLine();
-				// store the content of the file in s
-                r.close();
-				break;
-			} catch (IOException e) {
-                System.out.println("INVALID INPUT!!!");
-                System.out.println("Invalid File!!");				
-			}
-		}
+		//will keep trying to read a file
+		s = getContentsOfAFile(n);
 		
-		//tries to parse the file
+		//tries to parse the contents of the file read previously
 		try {
-			values = new Integer[s.split(",").length];
-			if(values.length<11*numberOfPlayers) {
-				throw new NotEnoughPebblesException();
-			}
-			for(int i = 0; i<s.split(",").length;i++) {
-				values[i] = Integer.parseInt(s.split(",")[i]);
-				if(values[i]<0) throw new NotPositivePebbleWeightException();
-			}
-		} catch (NumberFormatException e) {
-			System.out.println("INVALID INPUT!!!");
-			System.out.println("Not a number!!!");
-			b = setUpABag(n, numberOfPlayers);
-		} catch (NotEnoughPebblesException e) {
-			System.out.println("INVALID INPUT!!!");
-			System.out.println("Not enough pebbles exception!!!");
-			b = setUpABag(n, numberOfPlayers);
-		} catch (NotPositivePebbleWeightException e) {
-			System.out.println("INVALID INPUT!!!");
-			System.out.println("Not Positive Pebble Weight exception!!!");
+			values = parseContent(s, numberOfPlayers);
+		}catch (CannotParseException e) {
 			b = setUpABag(n, numberOfPlayers);
 		}
 		
-		//names the bags
+		//names the (paired) bag(s)
 		char black = (char) ('Z'-2+n);
 		char white = (char) ('A'+ n);
 		
-		//creates the bag
+		//creates the (paired) bag(s)
 		b = new BlackBag(values, "bag "+ black, "bag "+white);
 		
 		return b;
@@ -421,7 +455,7 @@ public class PebbleGame {
 			System.out.println("Please enter the number of players:\n");
 			try {
 				String s = sc.nextLine();
-				if(s.equals("E")||s.equals("e")) System.exit(0);
+				if(s.equals("E")||s.equals("e")) kill();
 				p = Integer.parseInt(s);
 			} catch (Exception e) {
 				System.out.println("Not a number.");
@@ -437,7 +471,13 @@ public class PebbleGame {
 	private void endOfGame() {
     	for(Thread t: threads) {
             t.interrupt();
-            System.exit(0);
+            kill();
     	}
     }
+	/**
+	 * A method to separate the System.exit() call for testing purposes.
+	 */
+	private void kill() {
+		System.exit(0);
+	}
 }
