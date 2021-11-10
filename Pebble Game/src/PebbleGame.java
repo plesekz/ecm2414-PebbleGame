@@ -125,14 +125,17 @@ public class PebbleGame {
         /**
          * The main body of the thread.
          * Will keep executing until interrupted.
+         * The warning can be safely suppressed, since it is worried about an object with a guaranteed type.
          */
-        public void run(){
+        @SuppressWarnings("unchecked")
+		public void run(){
         	//rename the thread so that the name matches the player's name.
         	Thread.currentThread().setName(name);
         	
         	//establish variables and their scope
         	Integer drawnPebble = null;
         	Integer discardedPebble = null;
+        	LinkedList<Integer> oldHand = null;
         	//the main loop
             while(true){
             	//the act of drawing and discarding is made into an atomic action through synchronisation.
@@ -140,6 +143,7 @@ public class PebbleGame {
             		//Handling discarding
             		discardedPebble = discardPebble();
             		lastBagChosen.putInPebble(discardedPebble);
+            		oldHand = (LinkedList<Integer>) hand.clone();
             		
             		//Handling drawing
             		Collections.shuffle(availableBags);
@@ -156,7 +160,7 @@ public class PebbleGame {
                 	}
 
 					//handling logging
-					logDiscarded(discardedPebble);
+            		logDiscarded(discardedPebble, oldHand);
 					logAdded(drawnPebble);
             	}
                 //handling adding to the hand
@@ -197,7 +201,7 @@ public class PebbleGame {
          * @param discardedPebble
          * Integer representing the value of the discarded pebble.
          */
-        private void logDiscarded(Integer discardedPebble){
+        private void logDiscarded(Integer discardedPebble, LinkedList<Integer> oldHand){
             String Name = Thread.currentThread().getName();
             StringBuilder Message = new StringBuilder();
             Message.append(Name);
@@ -209,7 +213,7 @@ public class PebbleGame {
 			Message.append(Name);
 			Message.append(" hand is ");
 			Message.append("[");
-			for(Integer I: hand){
+			for(Integer I: oldHand){
 				Message.append(" ");
 				Message.append(I);
 				Message.append(",");
@@ -237,7 +241,7 @@ public class PebbleGame {
             Message.append(drawnPebble);
             Message.append(" from ");
             Message.append(lastBagChosen.getName());
-            Message.append("\n");
+            Message.append(".\n");
             Message.append(Name);
             Message.append(" hand is ");
             Message.append("[");
@@ -356,7 +360,7 @@ public class PebbleGame {
     /**
      * Method to get the contents of a file corresponding to a bag N.
      * @param numberOfTheBag
-     * An int represnting the number of the bag.
+     * An int representing the number of the bag.
      * @return
      * A String representing the content o the file.
      */
@@ -431,7 +435,6 @@ public class PebbleGame {
      * The set up BlackBag.
      */
 	private BlackBag setUpABag(int n, int numberOfPlayers) {
-		BlackBag b = null;
 		String s;
 		Integer[] values = null;
 
@@ -442,7 +445,6 @@ public class PebbleGame {
 		try {
 			values = parseContent(s, numberOfPlayers);
 		}catch (CannotParseException e) {
-			b = setUpABag(n, numberOfPlayers);
 		}
 
 		return bagFactory(values, n);

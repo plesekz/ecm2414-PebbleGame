@@ -60,7 +60,7 @@ public class BlackBag extends Bag{
 	 * A method for entering a pebble into the paired bags.
 	 * Method redirects at the paired bag.
 	 * @param pebble
-	 * An Integer represting the weight of the pebble entered.
+	 * An Integer representing the weight of the pebble entered.
 	 */
 	@Override
 	public void putInPebble(Integer pebble) {
