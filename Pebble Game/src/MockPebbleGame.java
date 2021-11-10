@@ -261,7 +261,6 @@ public class MockPebbleGame {
     public void endOfGame() {
         for(Thread t: threads) {
             t.interrupt();
-            System.exit(0);
         }
     }
 }
